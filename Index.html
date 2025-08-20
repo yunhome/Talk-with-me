@@ -1,121 +1,94 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Escape Room - Hospício</title>
+  <title>Chat com Gojo</title>
   <style>
     body {
       background-color: #1b1b1b;
       color: #eee;
       font-family: 'Arial', sans-serif;
-      text-align: center;
-      padding: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    #room {
+    #chatContainer {
+      width: 400px;
+      height: 500px;
       border: 2px solid #eee;
-      padding: 20px;
-      margin: 20px auto;
-      width: 500px;
-      height: 300px;
-      position: relative;
+      border-radius: 10px;
       background-color: #2b2b2b;
-    }
-    button {
+      display: flex;
+      flex-direction: column;
       padding: 10px;
-      margin-top: 10px;
+    }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .message {
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+      max-width: 80%;
+    }
+    .user {
+      background-color: #42f5f5;
+      color: #000;
+      align-self: flex-end;
+    }
+    .bot {
+      background-color: #f542f5;
+      align-self: flex-start;
+    }
+    input {
+      padding: 10px;
       border-radius: 5px;
       border: none;
-      cursor: pointer;
-    }
-    #message {
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .hint {
-      color: #42f5f5;
-      cursor: pointer;
-      text-decoration: underline;
+      width: calc(100% - 22px);
     }
   </style>
 </head>
 <body>
-  <h1>Escape Room - Hospício</h1>
-  <div id="room">
-    <p>Você está preso em uma sala escura do hospício. Há uma porta trancada.</p>
-    <p>Olhe ao redor e procure pistas para descobrir a senha!</p>
-    <p class="hint" onclick="showHint(1)">📜 Papel no chão</p>
-    <p class="hint" onclick="showHint(2)">🖼️ Quadro na parede</p>
-    
-    <input type="text" id="codeInput" placeholder="Digite a senha">
-    <button onclick="checkCode()">Tentar abrir</button>
-    <p id="message"></p>
+  <div id="chatContainer">
+    <div id="messages"></div>
+    <input type="text" id="userInput" placeholder="Escreva algo para Gojo..." onkeypress="if(event.key==='Enter'){sendMessage()}">
   </div>
 
   <script>
-    const secretCode = "LIBERDADE";
-    let hintsFound = [];
+    const messages = document.getElementById('messages');
+    
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const text = input.value.trim();
+      if(text === "") return;
 
-    function showHint(number) {
-      const message = document.getElementById('message');
-      if(number === 1 && !hintsFound.includes(1)) {
-        message.style.color = "#42f5f5";
-        message.textContent = "O papel diz: 'A primeira letra é L...'";
-        hintsFound.push(1);
-      } else if(number === 2 && !hintsFound.includes(2)) {
-        message.style.color = "#42f5f5";
-        message.textContent = "O quadro tem um símbolo de liberdade desenhado. Talvez isso seja uma pista...";
-        hintsFound.push(2);
-      } else {
-        message.style.color = "#f5f542";
-        message.textContent = "Você já verificou isso.";
-      }
+      addMessage(text, 'user');
+      input.value = "";
+      
+      setTimeout(() => {
+        addMessage(getBotReply(text), 'bot');
+      }, 500); // delay do bot
     }
 
-    function checkCode() {
-      const userInput = document.getElementById('codeInput').value.toUpperCase();
-      const message = document.getElementById('message');
-      if(userInput === secretCode) {
-        message.style.color = "#42f554";
-        message.textContent = "Parabéns! Você escapou do hospício!";
-      } else {
-        message.style.color = "#f54242";
-        message.textContent = "Senha incorreta... continue procurando pistas!";
-      }
-      document.getElementById('codeInput').value = "";
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.className = 'message ' + sender;
+      msg.textContent = text;
+      messages.appendChild(msg);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function getBotReply(text) {
+      text = text.toLowerCase();
+      if(text.includes('oi') || text.includes('olá')) return "Oi! Gojo aqui 😎";
+      if(text.includes('poder') || text.includes('força')) return "Você quer ver meu poder infinito?";
+      if(text.includes('brincar') || text.includes('jogo')) return "Vamos brincar de adivinhar o seu estilo de batalha!";
+      if(text.includes('adeus') || text.includes('tchau')) return "Até mais, não se perca por aí 😉";
+      return "Hehe, interessante... continua falando!";
     }
   </script>
 </body>
 </html>
-<script>
-  const secretCode = "LIBERDADE";
-  let hintsFound = [];
-
-  function showHint(number) {
-    const message = document.getElementById('message');
-    if(number === 1 && !hintsFound.includes(1)) {
-      message.style.color = "#42f5f5";
-      message.textContent = "O papel diz: 'A primeira letra é L...'";
-      hintsFound.push(1);
-    } else if(number === 2 && !hintsFound.includes(2)) {
-      message.style.color = "#42f5f5";
-      message.textContent = "O quadro tem um símbolo de liberdade desenhado. Talvez isso seja uma pista...";
-      hintsFound.push(2);
-    } else {
-      message.style.color = "#f5f542";
-      message.textContent = "Você já verificou isso.";
-    }
-  }
-
-  function checkCode() {
-    const userInput = document.getElementById('codeInput').value.toUpperCase();
-    const message = document.getElementById('message');
-    if(userInput === secretCode) {
-      message.style.color = "#42f554";
-      message.textContent = "Parabéns! Você escapou do hospício!";
-    } else {
-      message.style.color = "#f54242";
-      message.textContent = "Senha incorreta... continue procurando pistas!";
-    }
-    document.getElementById('codeInput').value = "";
-  }
-</script>
