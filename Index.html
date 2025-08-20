@@ -1,183 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jivn Lyrics</title>
+  <title>Escape Room - Hospício</title>
   <style>
-    :root {
-      --verde-musgo: #556B2F;
-      --bege: #F5F5DC;
-      --marrom-claro: #A1887F;
-      --preto-suave: #2c2c2c;
-    }body {
-  margin: 0;
-  font-family: 'Cormorant Garamond', serif;
-  background-color: var(--bege);
-  color: var(--preto-suave);
-  line-height: 1.6;
-}
-
-header {
-  background: var(--verde-musgo);
-  color: white;
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-nav {
-  background: var(--marrom-claro);
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 0.8rem;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-nav a:hover {
-  color: var(--verde-musgo);
-}
-
-section {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-}
-
-h2 {
-  color: var(--verde-musgo);
-  border-bottom: 2px solid var(--marrom-claro);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.letra {
-  background: white;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border-left: 5px solid var(--verde-musgo);
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-footer {
-  text-align: center;
-  background: var(--verde-musgo);
-  color: white;
-  padding: 1rem;
-  margin-top: 2rem;
-}
-
+    body {
+      background-color: #1b1b1b;
+      color: #eee;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    #room {
+      border: 2px solid #eee;
+      padding: 20px;
+      margin: 20px auto;
+      width: 500px;
+      height: 300px;
+      position: relative;
+      background-color: #2b2b2b;
+    }
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .hint {
+      color: #42f5f5;
+      cursor: pointer;
+      text-decoration: underline;
+    }
   </style>
 </head>
-<body>  <header>
-    Jivn Lyrics
-  </header>  <nav>
-    <a href="#home">Home</a>
-    <a href="#letras">Letras</a>
-    <a href="#sobre">Sobre</a>
-    <a href="#contato">Contato</a>
-  </nav>  <section id="home">
-    <h2>Bem-vindo</h2>
-    <p>Onde cada letra encontra sua voz. Explore minhas composições originais e sinta a música através das palavras.</p>
-  </section>  <section id="letras">
-    <h2>Letras</h2>
-    <div class="letra">
-      <h3>🌙 Nome da Música</h3>
-      <p>
-        [Verse 1]<br>
-        [Intro]
-Ooh, ooh
-What you want? (What you want!)
-Ooh, ooh
+<body>
+  <h1>Escape Room - Hospício</h1>
+  <div id="room">
+    <p>Você está preso em uma sala escura do hospício. Há uma porta trancada.</p>
+    <p>Olhe ao redor e procure pistas para descobrir a senha!</p>
+    <p class="hint" onclick="showHint(1)">📜 Papel no chão</p>
+    <p class="hint" onclick="showHint(2)">🖼️ Quadro na parede</p>
+    
+    <input type="text" id="codeInput" placeholder="Digite a senha">
+    <button onclick="checkCode()">Tentar abrir</button>
+    <p id="message"></p>
+  </div>
 
-[Verse 1]
-It started with a glance
-In the middle of the night
-Back then, it felt like nothing serious
-But we fell into the fire
-It got way too high
-Too intense to be real
-I guess I thought you were mine, yeah
+  <script>
+    const secretCode = "LIBERDADE";
+    let hintsFound = [];
 
-[Pre-Chorus]
-Tell me how, how do I do it?
-How do I become yours?
-I can't resist (God damn)
-Yet I can't resist
+    function showHint(number) {
+      const message = document.getElementById('message');
+      if(number === 1 && !hintsFound.includes(1)) {
+        message.style.color = "#42f5f5";
+        message.textContent = "O papel diz: 'A primeira letra é L...'";
+        hintsFound.push(1);
+      } else if(number === 2 && !hintsFound.includes(2)) {
+        message.style.color = "#42f5f5";
+        message.textContent = "O quadro tem um símbolo de liberdade desenhado. Talvez isso seja uma pista...";
+        hintsFound.push(2);
+      } else {
+        message.style.color = "#f5f542";
+        message.textContent = "Você já verificou isso.";
+      }
+    }
 
-[Chorus]
-What you want? (What you want!)
-What you want from me? (From me-e)
-I’m giving all I can, can’t you see? (See-e-e)
-Hold me close, don’t let me go (go-o)
-I’ll be yours (tonight)
-Ooh, ooh, ooh
-What you want? (Want! Want!)
-
-[Verse 2]
-Thought I could call you anytime of day
-Shouldn’t have been so careless
-Shouldn’t have pushed you away (Woah)
-And now I crave you bad, really, really bad
-Guess you don’t know what you lost until it fades
-
-[Pre-Chorus]
-Tell me how, how do I do it?
-How do I become yours?
-I can't resist (God damn)
-Yet I can't resist
-
-[Chorus]
-What you want? (What you want!)
-What you want from me? (From me-e)
-I’m giving all I can, can’t you see? (See-e-e)
-Hold me close, don’t let me go (go-o)
-I’ll be yours (tonight)
-Ooh, ooh, ooh
-What you want? (Want! Want!)
-
-[Bridge]
-Take me higher, don’t let it fade
-Every move we make, a secret parade
-I’m falling faster than I ever knew
-All I want is closer to you
-
-[Pre-Chorus]
-Tell me how, how do I do it?
-How do I become yours?
-I can't resist (God damn)
-Yet I can't resist
-
-[Chorus]
-What you want? (What you want!)
-What you want from me? (From me-e)
-I’m giving all I can, can’t you see? (See-e-e)
-Hold me close, don’t let me go (go-o)
-I’ll be yours (tonight)
-Ooh, ooh, ooh
-What you want? (Want! Want!) ..<br>
-        <br> 
-        Para os fãs acompanharem.
-      </p>
-    </div>
-  
-  </section>  <section id="sobre">
-    <h2>Sobre</h2>
-    <p>Sou Jivn, e aqui compartilho minhas letras originais. Cada música é um pedaço da minha história, escrita para se conectar com quem escuta.</p>
-  </section>  <section id="contato">
-    <h2>Contato</h2>
-    <p>Quer falar comigo? Entre em contato pelo e-mail: <b>amandamarianatrindade705@gmail.com</b></p>
-  </section>  <footer>
-    © 2025 Jivn Lyrics - Todos os direitos reservados
-  </footer></body>
+    function checkCode() {
+      const userInput = document.getElementById('codeInput').value.toUpperCase();
+      const message = document.getElementById('message');
+      if(userInput === secretCode) {
+        message.style.color = "#42f554";
+        message.textContent = "Parabéns! Você escapou do hospício!";
+      } else {
+        message.style.color = "#f54242";
+        message.textContent = "Senha incorreta... continue procurando pistas!";
+      }
+      document.getElementById('codeInput').value = "";
+    }
+  </script>
+</body>
 </html>
