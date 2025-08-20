@@ -86,3 +86,36 @@
   </script>
 </body>
 </html>
+<script>
+  const secretCode = "LIBERDADE";
+  let hintsFound = [];
+
+  function showHint(number) {
+    const message = document.getElementById('message');
+    if(number === 1 && !hintsFound.includes(1)) {
+      message.style.color = "#42f5f5";
+      message.textContent = "O papel diz: 'A primeira letra é L...'";
+      hintsFound.push(1);
+    } else if(number === 2 && !hintsFound.includes(2)) {
+      message.style.color = "#42f5f5";
+      message.textContent = "O quadro tem um símbolo de liberdade desenhado. Talvez isso seja uma pista...";
+      hintsFound.push(2);
+    } else {
+      message.style.color = "#f5f542";
+      message.textContent = "Você já verificou isso.";
+    }
+  }
+
+  function checkCode() {
+    const userInput = document.getElementById('codeInput').value.toUpperCase();
+    const message = document.getElementById('message');
+    if(userInput === secretCode) {
+      message.style.color = "#42f554";
+      message.textContent = "Parabéns! Você escapou do hospício!";
+    } else {
+      message.style.color = "#f54242";
+      message.textContent = "Senha incorreta... continue procurando pistas!";
+    }
+    document.getElementById('codeInput').value = "";
+  }
+</script>
